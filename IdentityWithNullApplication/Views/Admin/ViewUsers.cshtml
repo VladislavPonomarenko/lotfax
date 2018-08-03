@@ -1,0 +1,70 @@
+﻿@model IEnumerable<IdentityWithNullApplication.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Админ панель: список пользователей";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3>Список пользователей</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-striped table-condensed table-bordered">
+            <tr>
+                <td>
+                    @Html.ActionLink("Все пользователи", "ViewUsers", null, new { roleName = "all" },
+                   new { @class = "btn btn-block btn-default btn-lg" })
+                </td>
+                <td>
+                    @Html.ActionLink("Admins", "ViewUsers", null, new { roleName = "admin" },
+                   new { @class = "btn btn-block btn-default btn-lg" })
+                </td>
+                <td>
+                    @Html.ActionLink("Users", "ViewUsers", null, new { roleName = "user" },
+                   new { @class = "btn btn-block btn-default btn-lg" })
+                </td>
+                <td>
+                    @Html.ActionLink("Moderators", "ViewUsers", null, new { roleName = "moderator" },
+             new { @class = "btn btn-block btn-default btn-lg" })
+                </td>
+                <td></td>
+               
+            </tr>
+            <tr>
+                <th class="text-right">ID</th>
+                <th>Email</th>
+                <th class="text-center">EmailConfirmed</th>
+                <th class="text-center">UserName</th>
+                <th class="text-center">Дія</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td class="text-right">@item.Id</td>
+                <td>@Html.ActionLink(item.Email, "EditUser", new {userId = item.Id })</td>
+                <td class="text-center">@item.EmailConfirmed</td>
+                <td class="text-center">@item.UserName</td>
+                <td class="text-center">
+                    @using (Html.BeginForm("DeleteUser", "Admin"))
+        {
+            @Html.Hidden("userId", item.Id.ToString())
+            <input type="submit"
+                   class="btn btn-default btn-xs" onclick="return confirmDelete();"
+                   value="Видалити" />
+}
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    <div class="panel-footer">
+        @Html.ActionLink("Додати користувача", "", null,
+                                       new { @class = "btn btn-default" })
+
+
+        @Html.RouteLink("На головну", new { controller = "Article", action = "ListArticles" }, new { @class = "btn btn-outline-primary" })
+    </div>
+</div>

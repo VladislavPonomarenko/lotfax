@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IdentityWithNullApplication.Models.Comment>
+@Styles.Render("~/Content/Site.css")
+@foreach (var item in Model)
+{
+
+    <div class="well">
+
+        <table>
+            <tr>
+                <td colspan="2">
+                    @Html.DisplayFor(modelItem => item.Author)
+                </td>
+                <td colspan="4" style="text-align:right">
+                    @Html.DisplayFor(modelItem => item.DateTimeComm)
+                </td>
+            </tr>
+            <tr>
+                <td class="lead" colspan="6">
+                    @Html.DisplayFor(modelItem => item.Comm)
+                </td>
+            </tr>
+        </table>
+    </div>
+
+}
+
+

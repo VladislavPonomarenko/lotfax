@@ -1,0 +1,104 @@
+﻿@model IdentityWithNullApplication.Models.ArticlesListViewModel
+
+@{
+
+    ViewBag.Title = "FullVersionArticle";
+}
+<script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+
+@{int ArticleFullId = 0;
+
+}
+@foreach (IdentityWithNullApplication.Models.Article p in Model.Articles)
+{
+    <div class="well">
+        <table>
+            <tr>
+                <td colspan="8" class=""><h2><b>@p.TitlePost</b></h2></td>
+            </tr>
+            <tr>
+                <td colspan="4">
+                    @if (p.ImageData != null)
+                    {
+                        <div class="pull-left" style="margin-right: 12px">
+                            <img class="img-thumbnail" width="250" height="250" align="left"
+                                 vspace="5" hspace="5"
+                                 src="@Url.Action("GetImage", "Article",
+new { p.ArticleId })" />
+                        </div>
+                    }
+                    @p.Message
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="3">Дата публикации:  @p.Date </td>
+                <td colspan="1" class="rightcol">Автор:  <b>@p.Author</b> </td>
+            </tr>
+        </table>
+        @{
+            ArticleFullId = p.ArticleId;
+
+        }
+    </div>
+
+}
+<hr />
+
+<script  type="text/javascript">
+    var articId = @ArticleFullId;
+    var request = $.ajax({
+        url: "/Article/CommentSearch?articleId=" + articId,
+        cache: false,
+        success: function (html) {
+            $("#results").append(html);
+        }
+    });
+    request.fail(function (jqXHR, textStatus) {
+        alert("Request failed: " + textStatus);
+    });
+</script>
+
+@if (Request.IsAuthenticated)
+{
+    <div>
+        @using (Ajax.BeginForm("CommentSearch", new { articleId = ArticleFullId }, new AjaxOptions { UpdateTargetId = "results" }))
+        {
+            @Html.Hidden("Id")
+            @Html.Hidden("Author", User.Identity.Name)
+            <p>
+                @Html.TextArea("Comm", "", 3, 120, htmlAttributes: new
+                {
+                    style = "width: 100%; max-width: 100%; ",
+                    @placeholder = "Оставьте комментарий",
+                    @class = "form -control",
+                    rows = "3"
+                })
+            </p>
+            @Html.Hidden("ArticleId", ArticleFullId.ToString())
+            @Html.Hidden("DateTimeComm", DateTime.Now.ToString())
+
+
+            <p><input type="submit" value="Отправить" /></p>
+        }
+
+
+
+    </div>
+    
+}
+else
+{
+
+    <p>
+        Оставлять коментарии могут только авторизование пользователи.
+        Чтобы авторизироватся перейдите по ссилке
+    </p>
+    @Html.RouteLink("Выполнить вход", new { controller = "Account", action = "Login" })
+}
+    <div id="results"></div>
+
+@Scripts.Render("~/Scripts/jquery-1.10.2.min.js")
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.min.js")
+
+

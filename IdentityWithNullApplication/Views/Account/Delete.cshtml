@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Удаление аккаунта";
+}
+
+@if (Request.IsAuthenticated)
+{
+    <form method="post">
+        <h2>Вы уверены, что хотите удалить свой аккаунт?</h2>
+        <button type="submit">Да</button>
+    </form>
+}
+else
+{
+    <h2>Для того чтобы удалить свой аккаунт нужно залогиниться</h2>
+}
+
+
+

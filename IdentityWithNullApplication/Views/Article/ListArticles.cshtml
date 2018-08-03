@@ -1,0 +1,25 @@
+﻿@using IdentityWithNullApplication.HTMLHelpers
+@model IdentityWithNullApplication.Models.ArticlesListViewModel
+
+@{
+    ViewBag.Title = "ListArticles";
+}
+
+@{
+    ViewBag.Title = "Новини";
+}
+@Styles.Render("~/Content/Site.css")
+<body>
+    @foreach (var p in @Model.Articles)
+    {
+        @Html.Partial("ArticleSummary", p)
+    }
+
+    <div class="btn-group pull-right">
+
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("ListArticles", new { page = x, category = Model.CurrentCategory }))
+    </div>
+    <br />
+    <hr/>
+</body>
+

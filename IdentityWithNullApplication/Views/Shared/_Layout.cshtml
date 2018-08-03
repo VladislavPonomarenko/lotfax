@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title – LotFax</title>
+    @Styles.Render("~/Content/css")
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("LotFax - новости для Вас!", "ListArticles", "Article", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+
+                    </li>
+
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="col-xs-12">
+
+
+        <div class="container body-content col-xs-10">
+            @RenderBody()
+
+
+            <footer>
+                <p>
+                    &copy; @DateTime.Now.Year – LotFax
+                    @Html.ActionLink("Контакт", "Contact", "Nav")
+
+                </p>
+            </footer>
+        </div>
+
+        <div id="categories" class="col-xs-2">
+            <div class="d1">
+                @using (Html.BeginForm("ListArticles", "Article"))
+                {
+                    <input type="text" name="searchString" placeholder="Поиск по сайту">
+                    <button type="submit"></button>
+                }
+
+            </div>
+            @Html.Action("NavMenu", "Nav")
+        </div>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

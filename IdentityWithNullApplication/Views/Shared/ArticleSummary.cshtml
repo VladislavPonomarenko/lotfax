@@ -1,0 +1,63 @@
+﻿@using IdentityWithNullApplication.Models
+@model IdentityWithNullApplication.Models.Article
+<div class="well">
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <table>
+                        <tr>
+                            <td colspan="8" class=""><h2><b>@Model.TitlePost</b></h2></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">
+                                @if (Model.ImageData != null)
+                                {
+                                    <div class="pull-left" style="margin-right: 12px">
+                                        <img class="img-thumbnail" width="250" height="250"
+                                             src="@Url.Action("GetImage", "Article",
+new { Model.ArticleId })" />
+                                    </div>
+                                }
+                            </td>
+
+
+                            @{
+                                string messEnd = @Model.Message;
+
+                            }
+                            @if (messEnd.Length >= 300)
+                            {
+                                int endString = messEnd.Substring(0, 300).LastIndexOf(" ");
+                                <td class="lead" colspan="4">@messEnd.Substring(0, endString)...</td>
+                            }
+                            else
+                            {
+                                <td class="lead" colspan="4">@messEnd</td>}
+                        </tr>
+                        <tr>
+                            @{
+                                var idPost = Model.ArticleId;
+                                var strPost = Model.TitlePost;
+                            }
+
+                            <td>
+
+                                <div class="btn btn-block pull-right">
+                                    @Html.ActionLink("Перегляд повної версії", "FullVersionArticle",
+                                        new { slug = Transliteration.Front(strPost), fullId = idPost })
+                                </div>
+                            </td>
+
+                        </tr>
+                        <tr>
+
+                            <td colspan="4">Дата публикации:  @Model.Date </td>
+                            <td colspan="4" class="rightcol">Автор:  <b>@Model.Author</b> </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
