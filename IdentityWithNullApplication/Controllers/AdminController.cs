@@ -38,6 +38,7 @@ namespace IdentityWithNullApplication.Controllers
         // GET: /Admin/Index
         public ViewResult Index()
         {
+          
             return View(repository.Articles);
         }
 

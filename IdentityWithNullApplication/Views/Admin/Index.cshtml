@@ -1,5 +1,5 @@
 ﻿@using IdentityWithNullApplication.Controllers
-@model IEnumerable<IdentityWithNullApplication.Models.Article>
+    @model IEnumerable<IdentityWithNullApplication.Models.Article>
 
 @{
     ViewBag.Title = "Админ панель: список новин";
@@ -8,45 +8,48 @@
 
 <h1>@ViewBag.Title</h1>
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3>Список новин</h3>
-    </div>
-    <div class="panel-body">
-        <table class="table table-striped table-condensed table-bordered">
-            <tr>
-                <th class="text-right">ID</th>
-                <th>Заголовок</th>
-                <th class="text-center">Категорія</th>
-                <th class="text-center">Дія</th>
-            </tr>
-            @foreach (var item in Model)
-            {
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3>Список новин</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped table-condensed table-bordered">
                 <tr>
-                    <td class="text-right">@item.ArticleId</td>
-                    <td>@Html.ActionLink(item.TitlePost, "Edit", new { item.ArticleId })</td>
-                    <td class="text-center">@item.Category</td>
-                    <td class="text-center">
-                        @using (Html.BeginForm("Delete", "Admin"))
-                        {
-                            @Html.Hidden("ArticleId", item.ArticleId)
-                            <input type="submit"
-                                   class="btn btn-default btn-xs" onclick="return confirmDelete();"
-                                   value="Видалити" />
-                        }
-                    </td>
+                    <th class="text-right">ID</th>
+                    <th>Заголовок</th>
+                    <th class="text-center">Категорія</th>
+                    <th class="text-center">Дія</th>
                 </tr>
-            }
-        </table>
-    </div>
-    <div class="panel-footer">
-        @Html.ActionLink("Додати новину", "Create", null,
-                             new { @class = "btn btn-default" })
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="text-right">@item.ArticleId</td>
+                        <td>@Html.ActionLink(item.TitlePost, "Edit", new { item.ArticleId })</td>
+                        <td class="text-center">@item.Category</td>
+                        <td class="text-center">
+                            @using (Html.BeginForm("Delete", "Admin"))
+                            {
+                                @Html.Hidden("ArticleId", item.ArticleId)
+                                <input type="submit"
+                                       class="btn btn-default btn-xs" onclick="return confirmDelete();"
+                                       value="Видалити" />
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+        <div class="panel-footer">
+            @Html.ActionLink("Додати новину", "Create", null,
+                                 new { @class = "btn btn-default" })
 
 
-        @Html.RouteLink("На головну", new { controller = "Article", action = "ListArticles" }, new { @class = "btn btn-outline-primary" })
+            @Html.RouteLink("На головну", new { controller = "Article", action = "ListArticles" }, new { @class = "btn btn-outline-primary" })
+        </div>
     </div>
-</div>
+
+
+
 
 
 

@@ -6,14 +6,14 @@ namespace IdentityWithNullApplication.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class IdentityWithNullApp290718 : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class ArticleMigration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IdentityWithNullApp290718));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ArticleMigration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201807301956435_IdentityWithNullApp290718"; }
+            get { return "201808161349459_ArticleMigration"; }
         }
         
         string IMigrationMetadata.Source
